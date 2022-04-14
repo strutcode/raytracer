@@ -4,9 +4,9 @@ import Sequence from '../abstract/Sequence'
 export default abstract class Rasterizer {
   public abstract render(scene: Scene)
 
-  public renderSequence(sequence: Sequence) {
+  public async renderSequence(sequence: Sequence) {
     while (sequence.hasNext()) {
-      this.render(sequence.next())
+      this.render(await sequence.next())
     }
   }
 }
