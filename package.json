@@ -1,0 +1,14 @@
+{
+  "name": "raytracer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.6.3",
+    "vite": "^2.9.4"
+  },
+  "scripts": {
+    "build": "vite build",
+    "start": "vite dev"
+  }
+}
