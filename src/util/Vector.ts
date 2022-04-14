@@ -32,4 +32,14 @@ export default class Vector {
   public reflect(normal: Vector) {
     return this.sub(normal.mul(2 * this.dot(normal)))
   }
+
+  public get length() {
+    return Math.sqrt(this.dot(this))
+  }
+
+  public normalize() {
+    const length = this.length
+
+    return new Vector(this.x / length, this.y / length, this.z / length)
+  }
 }

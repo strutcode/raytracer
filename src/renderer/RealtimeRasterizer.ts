@@ -54,13 +54,16 @@ export default class RealtimeRasterizer extends Rasterizer {
         // Get a ray for the current screen pixel
         const ray = new Ray(new Vector(x, y, 0), new Vector(0, 0, 1))
         // const ray = scene.camera.rayForPixel(x, y)
-        const color = this.raytracer.trace(scene, ray, 0)
 
+        // Trace the ray and get the color
+        const color = this.raytracer.trace(scene, ray)
+
+        // Put the color into the frame buffer, converting from 0..1 to 0..255
         const index = (y * width + x) * 4
-        this.frameBuffer[index + 0] = color.r * 255
-        this.frameBuffer[index + 1] = color.g * 255
-        this.frameBuffer[index + 2] = color.b * 255
-        this.frameBuffer[index + 3] = color.a * 255
+        this.frameBuffer[index + 0] = Math.round(color.r * 255)
+        this.frameBuffer[index + 1] = Math.round(color.g * 255)
+        this.frameBuffer[index + 2] = Math.round(color.b * 255)
+        this.frameBuffer[index + 3] = Math.round(color.a * 255)
       }
     }
 

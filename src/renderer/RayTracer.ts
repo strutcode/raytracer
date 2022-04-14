@@ -3,7 +3,7 @@ import Ray from '../util/Ray'
 import Scene from './Scene'
 
 export default class RayTracer {
-  public trace(scene: Scene, ray: Ray, depth: number): Color {
+  public trace(scene: Scene, ray: Ray, depth: number = 0): Color {
     const intersection = scene.intersect(ray)
 
     if (intersection) {
