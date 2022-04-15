@@ -11,9 +11,7 @@ export default class RayTracer {
       let color = new Color()
 
       scene.eachLight((light) => {
-        color.add(
-          baseCol.copy().mul(light.contribution(new Ray(intersection.position, intersection.normal))),
-        )
+        color.add(baseCol.copy().mul(light.contribution(intersection)))
       })
 
       return color

@@ -63,9 +63,11 @@ export default class RealtimeRasterizer extends Rasterizer {
 
         // Put the color into the frame buffer, converting from 0..1 to 0..255
         const index = (y * width + x) * 4
-        this.frameBuffer[index + 0] = Math.round(color.r * 255)
-        this.frameBuffer[index + 1] = Math.round(color.g * 255)
-        this.frameBuffer[index + 2] = Math.round(color.b * 255)
+        const e = 0.5
+
+        this.frameBuffer[index + 0] = Math.round(color.r * 255 * e)
+        this.frameBuffer[index + 1] = Math.round(color.g * 255 * e)
+        this.frameBuffer[index + 2] = Math.round(color.b * 255 * e)
         this.frameBuffer[index + 3] = Math.round(color.a * 255)
       }
     }

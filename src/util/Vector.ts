@@ -43,6 +43,14 @@ export default class Vector {
     return this
   }
 
+  public inverse() {
+    this.x = -this.x
+    this.y = -this.y
+    this.z = -this.z
+
+    return this
+  }
+
   public copy() {
     return new Vector(this.x, this.y, this.z)
   }

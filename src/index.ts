@@ -26,8 +26,8 @@ sequence.onStep = () => {
 
   sphere.center.x = 180 + Math.sin(d) * 80
 
-  light.position.x = sphere.center.x + Math.sin(d) * 500
-  light.position.z = sphere.center.z + Math.cos(d) * 500
+  light.position.x = sphere.center.x + Math.sin(d + Math.PI) * 500
+  light.position.z = sphere.center.z + Math.cos(d + Math.PI) * 500
 }
 
 renderer.renderSequence(sequence)
