@@ -9,12 +9,16 @@ export default class Scene {
   private shapes: Shape[] = []
   private lights: Light[] = []
 
-  public addShape(shape: Shape) {
+  public addShape<T extends Shape>(shape: T): T {
     this.shapes.push(shape)
+
+    return shape
   }
 
-  public addLight(light: Light) {
+  public addLight<T extends Light>(light: T): T {
     this.lights.push(light)
+
+    return light
   }
 
   public eachLight(callback: (light: Light) => void) {
@@ -27,12 +31,14 @@ export default class Scene {
     for (const shape of this.shapes) {
       const hit = shape.intersect(ray)
 
+      if (!hit) continue
+
       if (!nearestHit || hit?.t < nearestHit?.t) {
         nearestHit = hit
       }
     }
 
-    if (nearestHit?.t > tMax) {
+    if (nearestHit && nearestHit?.t > tMax) {
       return null
     }
 

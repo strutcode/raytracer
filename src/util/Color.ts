@@ -11,9 +11,9 @@ export default class Color {
 
   public mul(other: number | Color) {
     if (other instanceof Color) {
-      return new Color(this.r * other.r, this.g * other.g, this.b * other.b, this.a * other.a)
+      return new Color(this.r * other.r, this.g * other.g, this.b * other.b, this.a)
     }
 
-    return new Color(this.r * other, this.g * other, this.b * other, this.a * other)
+    return new Color(this.r * other, this.g * other, this.b * other, this.a)
   }
 }
