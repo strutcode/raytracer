@@ -7,13 +7,14 @@ export default class RayTracer {
     const intersection = scene.intersect(ray)
 
     if (intersection) {
-      const color = intersection.material.color
-      const normal = intersection.normal
-      const reflected = ray.direction.reflect(normal)
-      const reflectedRay = new Ray(intersection.position, reflected)
-      const reflectedColor = this.trace(scene, reflectedRay, depth + 1)
+      // let color = intersection.material.color
+      let color = new Color()
 
-      return color.add(reflectedColor.mul(intersection.material.gloss))
+      scene.eachLight((light) => {
+        color = light.contribution(new Ray(intersection.position, intersection.normal))
+      })
+
+      return color
     } else {
       return new Color(0, 0, 0)
     }
