@@ -10,7 +10,7 @@ import Vector from './util/Vector'
 const scene = new Scene()
 
 const sphere = scene.addShape(
-  new Sphere(new Vector(180, 120, 500), 100, new Material(new Color(1, 0, 0))),
+  new Sphere(new Vector(180, 120, 500), 100, new Material(new Color(0.2, 0.85, 1))),
 )
 const light = scene.addLight(new Light(new Vector(-500, 0, 250)))
 
