@@ -26,7 +26,9 @@ export default class Sphere extends Shape {
     }
 
     const thc = Math.sqrt(this.radius * this.radius - d * d)
+    const t0 = tca - thc
+    const P = ray.origin.add(ray.direction.mul(t0))
 
-    return new Intersection(ray, tca - thc, this.material, L.normalize())
+    return new Intersection(ray, t0, this.material, P.sub(this.center).normalize())
   }
 }

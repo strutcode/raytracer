@@ -3,14 +3,9 @@ import Ray from './Ray'
 import Vector from './Vector'
 
 export default class Intersection {
-  constructor(
-    public ray: Ray,
-    public t: number,
-    public material: Material,
-    public normal: Vector,
-  ) {}
+  public position: Vector
 
-  public get position(): Vector {
-    return this.ray.origin.mul(this.t)
+  constructor(public ray: Ray, public t: number, public material: Material, public normal: Vector) {
+    this.position = this.ray.origin.add(this.ray.direction.mul(this.t))
   }
 }
