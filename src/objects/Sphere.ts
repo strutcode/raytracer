@@ -18,16 +18,23 @@ export default class Sphere extends Shape {
       return null
     }
 
-    const d = Math.sqrt(L.dot(L) - tca * tca)
+    // Calculate the distance from the sphere center to the intersection point squared
+    const d2 = L.dot(L) - tca ** 2
+    const sR = this.radius ** 2
 
-    // If the distance of the ray from the center is greater than radius, it missed
-    if (d > this.radius) {
+    // If the distance of the ray from the center (squared) is greater than radius (squared), it missed
+    if (d2 > sR) {
       return null
     }
 
-    const thc = Math.sqrt(this.radius * this.radius - d * d)
+    // Calculate the distance from the origin to the sphere center
+    const thc = Math.sqrt(sR - d2)
+
+    // Calculate t0, or the distance from the ray origin to the intersection point
     const t0 = tca - thc
-    const P = ray.origin.copy().add(ray.direction.copy().mul(t0))
+
+    // Get the intersection point as a vector
+    const P = ray.direction.copy().mul(t0).add(ray.origin)
 
     return new Intersection(ray, t0, this.material, P.sub(this.center).normalize())
   }
