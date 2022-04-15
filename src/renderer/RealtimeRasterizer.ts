@@ -30,10 +30,11 @@ export default class RealtimeRasterizer extends Rasterizer {
 
     Object.assign(this.canvas.style, {
       position: 'fixed',
-      top: 0,
+      top: '50%',
       left: 0,
+      transform: 'translateY(-50%)',
       width: '100%',
-      height: '100%',
+      height: 'auto',
     })
 
     // Display the canvas
@@ -46,6 +47,8 @@ export default class RealtimeRasterizer extends Rasterizer {
   }
 
   public render(scene: Scene) {
+    if (!this.context) return
+
     const { width, height } = this.canvas
 
     // Scan from top to bottom, left to right
