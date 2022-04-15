@@ -3,26 +3,48 @@ export default class Vector {
 
   public add(n: Vector | number) {
     if (n instanceof Vector) {
-      return new Vector(this.x + n.x, this.y + n.y, this.z + n.z)
+      this.x += n.x
+      this.y += n.y
+      this.z += n.z
+    } else {
+      this.x += n
+      this.y += n
+      this.z += n
     }
 
-    return new Vector(this.x + n, this.y + n, this.z + n)
+    return this
   }
 
   public sub(n: Vector | number) {
     if (n instanceof Vector) {
-      return new Vector(this.x - n.x, this.y - n.y, this.z - n.z)
+      this.x -= n.x
+      this.y -= n.y
+      this.z -= n.z
+    } else {
+      this.x -= n
+      this.y -= n
+      this.z -= n
     }
 
-    return new Vector(this.x - n, this.y - n, this.z - n)
+    return this
   }
 
   public mul(n: Vector | number) {
     if (n instanceof Vector) {
-      return new Vector(this.x * n.x, this.y * n.y, this.z * n.z)
+      this.x *= n.x
+      this.y *= n.y
+      this.z *= n.z
+    } else {
+      this.x *= n
+      this.y *= n
+      this.z *= n
     }
 
-    return new Vector(this.x * n, this.y * n, this.z * n)
+    return this
+  }
+
+  public copy() {
+    return new Vector(this.x, this.y, this.z)
   }
 
   public dot(other: Vector) {
@@ -30,7 +52,7 @@ export default class Vector {
   }
 
   public reflect(normal: Vector) {
-    return this.sub(normal.mul(2 * this.dot(normal)))
+    return this.copy().sub(normal.copy().mul(2 * this.dot(normal)))
   }
 
   public get length() {
@@ -40,6 +62,10 @@ export default class Vector {
   public normalize() {
     const length = this.length
 
-    return new Vector(this.x / length, this.y / length, this.z / length)
+    this.x /= length
+    this.y /= length
+    this.z /= length
+
+    return this
   }
 }

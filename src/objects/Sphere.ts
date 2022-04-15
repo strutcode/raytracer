@@ -10,7 +10,7 @@ export default class Sphere extends Shape {
   }
 
   public intersect(ray: Ray): Intersection | null {
-    const L = this.center.sub(ray.origin)
+    const L = this.center.copy().sub(ray.origin)
     const tca = ray.direction.dot(L)
 
     // If the ray is pointing away from the sphere center there's no chance of intersection
@@ -27,7 +27,7 @@ export default class Sphere extends Shape {
 
     const thc = Math.sqrt(this.radius * this.radius - d * d)
     const t0 = tca - thc
-    const P = ray.origin.add(ray.direction.mul(t0))
+    const P = ray.origin.copy().add(ray.direction.copy().mul(t0))
 
     return new Intersection(ray, t0, this.material, P.sub(this.center).normalize())
   }

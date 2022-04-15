@@ -3,17 +3,33 @@ export default class Color {
 
   public add(other: number | Color) {
     if (other instanceof Color) {
-      return new Color(this.r + other.r, this.g + other.g, this.b + other.b, this.a)
+      this.r += other.r
+      this.g += other.g
+      this.b += other.b
+    } else {
+      this.r += other
+      this.g += other
+      this.b += other
     }
 
-    return new Color(this.r + other, this.g + other, this.b + other, this.a)
+    return this
   }
 
   public mul(other: number | Color) {
     if (other instanceof Color) {
-      return new Color(this.r * other.r, this.g * other.g, this.b * other.b, this.a)
+      this.r *= other.r
+      this.g *= other.g
+      this.b *= other.b
+    } else {
+      this.r *= other
+      this.g *= other
+      this.b *= other
     }
 
-    return new Color(this.r * other, this.g * other, this.b * other, this.a)
+    return this
+  }
+
+  public copy() {
+    return new Color(this.r, this.g, this.b, this.a)
   }
 }
