@@ -18,7 +18,7 @@ export default class RayTracer {
 
       return color
     } else {
-      return new Color(0, 0, 0)
+      return scene.background
     }
   }
 }

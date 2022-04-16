@@ -3,7 +3,7 @@ import Intersection from '../util/Intersection'
 import Vector from '../util/Vector'
 
 export default class Light {
-  constructor(public position: Vector, public color: Color = new Color(1, 1, 1)) {}
+  constructor(public position: Vector, public color: Color = Color.white) {}
 
   public contribution(hit: Intersection) {
     const viewDir = hit.ray.direction

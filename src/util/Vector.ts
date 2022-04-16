@@ -1,4 +1,37 @@
 export default class Vector {
+  public static get up() {
+    return new Vector(0, 1, 0)
+  }
+  public static get down() {
+    return new Vector(0, -1, 0)
+  }
+  public static get left() {
+    return new Vector(-1, 0, 0)
+  }
+  public static get right() {
+    return new Vector(1, 0, 0)
+  }
+  public static get forward() {
+    return new Vector(0, 0, 1)
+  }
+  public static get back() {
+    return new Vector(0, 0, -1)
+  }
+  public static get zero() {
+    return new Vector(0, 0, 0)
+  }
+  public static get one() {
+    return new Vector(1, 1, 1)
+  }
+
+  public static randomUnit() {
+    return new Vector(
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1,
+    ).normalize()
+  }
+
   constructor(public x = 0, public y = 0, public z = 0) {}
 
   public add(n: Vector | number) {

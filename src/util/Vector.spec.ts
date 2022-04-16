@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+
 import Vector from './Vector'
 
 describe('Vector', () => {
@@ -11,15 +12,17 @@ describe('Vector', () => {
   })
 
   it('can calculate a dot product', () => {
-    expect(new Vector(1, 0, 0).dot(new Vector(1, 0, 0))).to.equal(1)
-    expect(new Vector(1, 0, 0).dot(new Vector(0, 1, 0))).to.equal(0)
-    expect(new Vector(1, 0, 0).dot(new Vector(-1, 0, 0))).to.equal(-1)
+    expect(Vector.right.dot(Vector.right)).to.equal(1)
+    expect(Vector.right.dot(Vector.up)).to.equal(0)
+    expect(Vector.right.dot(Vector.left)).to.equal(-1)
   })
 
   it('can calculate a reflection vector', () => {
-    const d = new Vector(1, 1, 0)
+    const upRight = new Vector(1, 1, 0)
+    const upLeft = new Vector(-1, 1, 0)
+    const downRight = new Vector(1, -1, 0)
 
-    expect(d.reflect(new Vector(-1, 0, 0))).to.deep.equal(new Vector(-1, 1, 0))
-    expect(d.reflect(new Vector(0, -1, 0))).to.deep.equal(new Vector(1, -1, 0))
+    expect(upRight.reflect(Vector.left)).to.deep.equal(upLeft)
+    expect(upRight.reflect(Vector.down)).to.deep.equal(downRight)
   })
 })

@@ -5,7 +5,11 @@ import Ray from '../util/Ray'
 import Vector from '../util/Vector'
 
 export default class Sphere extends Shape {
-  constructor(public center: Vector, public radius: number, public material: Material) {
+  constructor(
+    public center: Vector,
+    public radius: number,
+    public material: Material = new Material(),
+  ) {
     super(material)
   }
 
