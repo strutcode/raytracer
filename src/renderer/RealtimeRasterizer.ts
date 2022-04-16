@@ -1,20 +1,25 @@
 import Rasterizer from '../abstract/Rasterizer'
 import Ray from '../util/Ray'
 import Vector from '../util/Vector'
+import Camera from './Camera'
 import RayTracer from './RayTracer'
 import Scene from './Scene'
 
 type RealtimeRasterizerOptions = {
   width: number
   height: number
+  fieldOfView?: number
 }
 
-const defaultOptions = {}
+const defaultOptions = {
+  fieldOfView: 90,
+}
 
 export default class RealtimeRasterizer extends Rasterizer {
   private frameBuffer: Uint8ClampedArray
   private canvas = document.createElement('canvas')
   private context = this.canvas.getContext('2d')
+  private camera: Camera
   private raytracer = new RayTracer()
   private exposure = 1
 
@@ -22,6 +27,8 @@ export default class RealtimeRasterizer extends Rasterizer {
     super()
 
     const opts = { ...defaultOptions, ...options }
+
+    this.camera = new Camera(opts.fieldOfView)
 
     // width x height pixels with 4 components each (r, g, b, a)
     this.frameBuffer = new Uint8ClampedArray(opts.width * opts.height * 4)
@@ -56,8 +63,8 @@ export default class RealtimeRasterizer extends Rasterizer {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         // Get a ray for the current screen pixel
-        const ray = new Ray(new Vector(x, y, 0), new Vector(0, 0, 1))
-        // const ray = scene.camera.rayForPixel(x, y)
+        // const ray = new Ray(new Vector(x, y, 0), new Vector(0, 0, 1))
+        const ray = this.camera.rayForPixel(x, y, width, height)
 
         // Trace the ray and get the color
         const color = this.raytracer.trace(scene, ray)

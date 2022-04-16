@@ -10,7 +10,7 @@ import Vector from './util/Vector'
 const scene = new Scene()
 
 const sphere = scene.addShape(
-  new Sphere(new Vector(180, 120, 500), 100, new Material(new Color(0.2, 0.85, 1))),
+  new Sphere(new Vector(180, 0, 500), 100, new Material(new Color(0.2, 0.85, 1))),
 )
 const light = scene.addLight(new Light(new Vector(-500, 0, 250)))
 
@@ -24,7 +24,7 @@ let d = 0
 sequence.onStep = () => {
   d += 0.01
 
-  sphere.center.x = 180 + Math.sin(d) * 80
+  sphere.center.x = Math.sin(d) * 500
 
   light.position.x = sphere.center.x + Math.sin(d + Math.PI) * 500
   light.position.z = sphere.center.z + Math.cos(d + Math.PI) * 500
