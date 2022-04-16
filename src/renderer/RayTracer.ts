@@ -7,11 +7,13 @@ export default class RayTracer {
     const intersection = scene.intersect(ray)
 
     if (intersection) {
-      const baseCol = intersection.material.color
       let color = new Color()
 
       scene.eachLight((light) => {
-        color.add(baseCol.copy().mul(light.contribution(intersection)))
+        const contribution = light.contribution(intersection)
+
+        color.add(contribution.diffuse)
+        color.add(contribution.specular)
       })
 
       return color

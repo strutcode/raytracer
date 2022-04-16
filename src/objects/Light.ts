@@ -8,15 +8,26 @@ export default class Light {
   public contribution(hit: Intersection) {
     const viewDir = hit.ray.direction
     const lightDir = this.position.copy().sub(hit.position).normalize()
-    const diffuse = Math.max(0, lightDir.dot(hit.normal))
 
-    // Calculate phong intensity
-    const phong = this.calculatePhong(viewDir, lightDir, hit.normal)
+    // Get light amounts
+    const diffuse = this.calculateDiffuse(lightDir, hit.normal)
+    const specular = this.calculatePhong(viewDir, lightDir, hit.normal)
 
-    // Calculate the light color and intensity
-    const { r, g, b } = this.color
+    // Shorthand the colors
+    const mat = hit.material.color
+    const light = this.color
 
-    return new Color(r * diffuse + 1 * phong, g * diffuse + 1 * phong, b * diffuse + 1 * phong)
+    // Calculate the colors and intensities
+    return {
+      diffuse: new Color(mat.r * diffuse, mat.g * diffuse, mat.b * diffuse),
+      specular: new Color(light.r * specular, light.g * specular, light.b * specular),
+    }
+  }
+
+  private calculateDiffuse(lightDir: Vector, normal: Vector) {
+    const diffuse = Math.max(0, lightDir.dot(normal))
+
+    return diffuse
   }
 
   private calculatePhong(viewDir: Vector, lightDir: Vector, normal: Vector, exponent = 50) {
