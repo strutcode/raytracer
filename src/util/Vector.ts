@@ -43,6 +43,20 @@ export default class Vector {
     return this
   }
 
+  public div(n: Vector | number) {
+    if (n instanceof Vector) {
+      this.x /= n.x
+      this.y /= n.y
+      this.z /= n.z
+    } else {
+      this.x /= n
+      this.y /= n
+      this.z /= n
+    }
+
+    return this
+  }
+
   public inverse() {
     this.x = -this.x
     this.y = -this.y

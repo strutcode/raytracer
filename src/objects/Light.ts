@@ -11,7 +11,7 @@ export default class Light {
 
     // Get light amounts
     const diffuse = this.calculateDiffuse(lightDir, hit.normal)
-    const specular = this.calculatePhong(viewDir, lightDir, hit.normal)
+    const specular = this.fastPhong(viewDir, lightDir, hit.normal)
 
     // Shorthand the colors
     const mat = hit.material.color
@@ -25,15 +25,18 @@ export default class Light {
   }
 
   private calculateDiffuse(lightDir: Vector, normal: Vector) {
-    const diffuse = Math.max(0, lightDir.dot(normal))
-
-    return diffuse
+    return Math.max(0, lightDir.dot(normal))
   }
 
   private calculatePhong(viewDir: Vector, lightDir: Vector, normal: Vector, exponent = 50) {
     const lightReflection = lightDir.copy().reflect(normal)
-    const phong = Math.max(0, lightReflection.dot(viewDir)) ** exponent
 
-    return phong
+    return Math.max(0, lightReflection.dot(viewDir)) ** exponent
+  }
+
+  private fastPhong(viewDir: Vector, lightDir: Vector, normal: Vector, exponent = 50) {
+    const halfway = lightDir.copy().inverse().add(viewDir).normalize()
+
+    return Math.max(0, -halfway.dot(normal)) ** (exponent * 2)
   }
 }
