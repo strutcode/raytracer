@@ -16,6 +16,7 @@ export default class RealtimeRasterizer extends Rasterizer {
   private canvas = document.createElement('canvas')
   private context = this.canvas.getContext('2d')
   private raytracer = new RayTracer()
+  private exposure = 1
 
   constructor(options: RealtimeRasterizerOptions) {
     super()
@@ -63,11 +64,13 @@ export default class RealtimeRasterizer extends Rasterizer {
 
         // Put the color into the frame buffer, converting from 0..1 to 0..255
         const index = (y * width + x) * 4
-        const e = 0.5
 
-        this.frameBuffer[index + 0] = Math.round(color.r * 255 * e)
-        this.frameBuffer[index + 1] = Math.round(color.g * 255 * e)
-        this.frameBuffer[index + 2] = Math.round(color.b * 255 * e)
+        // Adjust exposure value
+        this.exposure = Math.min(this.exposure, 1 / color.r, 1 / color.g, 1 / color.b)
+
+        this.frameBuffer[index + 0] = Math.round(color.r * 255 * this.exposure)
+        this.frameBuffer[index + 1] = Math.round(color.g * 255 * this.exposure)
+        this.frameBuffer[index + 2] = Math.round(color.b * 255 * this.exposure)
         this.frameBuffer[index + 3] = Math.round(color.a * 255)
       }
     }
