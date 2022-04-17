@@ -8,5 +8,7 @@ export function benchmark(name: string, fn: () => void, iterations = 10000) {
   }
 
   const end = performance.now()
-  console.log(`${name}: ${end - start}ms`)
+  console.log(`${name}: ${(end - start).toFixed(2)}ms`)
+
+  return end - start
 }
