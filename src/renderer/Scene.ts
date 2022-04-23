@@ -1,11 +1,13 @@
 import Shape from '../abstract/Shape'
 import Light from '../objects/Light'
+import HdriSampler from '../samplers/HdriSampler'
 import Color from '../util/Color'
 import Intersection from '../util/Intersection'
 import Ray from '../util/Ray'
+import Vector from '../util/Vector'
 
 export default class Scene {
-  public background = new Color()
+  public background: Color | HdriSampler = new Color()
   private shapes: Shape[] = []
   private lights: Light[] = []
 
@@ -43,5 +45,13 @@ export default class Scene {
     }
 
     return nearestHit
+  }
+
+  public getColor(dir: Vector) {
+    if (this.background instanceof Color) {
+      return this.background
+    }
+
+    return this.background.sample(dir)
   }
 }

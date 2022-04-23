@@ -3,6 +3,8 @@ import Ray from '../util/Ray'
 import Scene from './Scene'
 
 export default class RayTracer {
+  constructor(public maxBounces = 3) {}
+
   public trace(scene: Scene, ray: Ray, depth: number = 0): Color {
     const intersection = scene.intersect(ray)
 
@@ -18,7 +20,7 @@ export default class RayTracer {
 
       return color
     } else {
-      return scene.background
+      return scene.getColor(ray.direction)
     }
   }
 }
