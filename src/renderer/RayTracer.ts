@@ -11,6 +11,14 @@ export default class RayTracer {
     if (intersection) {
       let color = new Color()
 
+      if (depth < this.maxBounces) {
+        // Recurse to get reflection contribution
+        const reflectedRay = new Ray(intersection.position, ray.direction.reflect(intersection.normal))
+        const reflectedColor = this.trace(scene, reflectedRay, depth + 1)
+
+        color = reflectedColor
+      }
+
       scene.eachLight((light) => {
         const contribution = light.contribution(intersection)
 
