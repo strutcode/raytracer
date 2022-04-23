@@ -73,7 +73,7 @@ export default class RealtimeRasterizer extends Rasterizer {
         const index = (y * width + x) * 4
 
         // Adjust exposure value
-        this.exposure = Math.min(this.exposure, 1 / color.r, 1 / color.g, 1 / color.b)
+        // this.exposure = Math.min(this.exposure, 1 / color.r, 1 / color.g, 1 / color.b)
 
         this.frameBuffer[index + 0] = Math.round(color.r * 255 * this.exposure)
         this.frameBuffer[index + 1] = Math.round(color.g * 255 * this.exposure)
