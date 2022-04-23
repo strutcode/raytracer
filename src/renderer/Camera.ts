@@ -2,22 +2,26 @@ import Ray from '../util/Ray'
 import Vector from '../util/Vector'
 
 const degToRad = 0.017453292519943295
+const halfPi = Math.PI / 2
 
 export default class Camera {
-  private fovTan: number
+  private fovScale: number
 
-  constructor(public fieldOfView: number) {
-    this.fovTan = (fieldOfView / 2) * degToRad
+  constructor(public fieldOfView: number = 90) {
+    this.fovScale = fieldOfView * 0.5 * degToRad
   }
 
   public rayForPixel(x: number, y: number, width: number, height: number): Ray {
     const halfW = width / 2
     const halfH = height / 2
+    
+    const xComp = ((x - halfW) / halfW) * this.fovScale
+    const yComp = ((y - halfH) / halfH) * this.fovScale
 
     const direction = new Vector(
-      Math.tan(this.fovTan * ((x - halfW) / halfW)),
-      Math.tan(this.fovTan * ((halfH - y) / halfH) * (height / width)),
-      1,
+      Math.sin(xComp),
+      Math.sin(-yComp),
+      Math.cos(xComp),
     ).normalize()
 
     return new Ray(Vector.zero, direction)

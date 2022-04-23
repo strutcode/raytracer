@@ -12,7 +12,7 @@ type RealtimeRasterizerOptions = {
 }
 
 const defaultOptions = {
-  fieldOfView: 90,
+  fieldOfView: 75,
 }
 
 export default class RealtimeRasterizer extends Rasterizer {
