@@ -1,3 +1,4 @@
+/** Provides a stream-like interface to an ArrayBuffer for easier read access. */
 export default class StreamReader {
   private pointer = 0
   private view: DataView

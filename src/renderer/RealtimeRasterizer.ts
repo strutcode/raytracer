@@ -15,6 +15,9 @@ const defaultOptions = {
   fieldOfView: 75,
 }
 
+/**
+ * A rasterizer that renders a scene to a canvas.
+ */
 export default class RealtimeRasterizer extends Rasterizer {
   private frameBuffer: Uint8ClampedArray
   private canvas = document.createElement('canvas')
@@ -28,6 +31,7 @@ export default class RealtimeRasterizer extends Rasterizer {
 
     const opts = { ...defaultOptions, ...options }
 
+    // Create a basic camera
     this.camera = new Camera(opts.fieldOfView)
 
     // width x height pixels with 4 components each (r, g, b, a)
@@ -36,6 +40,7 @@ export default class RealtimeRasterizer extends Rasterizer {
     // Set initial render resolution
     this.resize(opts.width, opts.height)
 
+    // Fit the canvas to the document width
     Object.assign(this.canvas.style, {
       position: 'fixed',
       top: '50%',
@@ -49,6 +54,7 @@ export default class RealtimeRasterizer extends Rasterizer {
     document.body.appendChild(this.canvas)
   }
 
+  // Changes the final render resolution
   public resize(width: number, height: number) {
     this.canvas.width = width
     this.canvas.height = height
@@ -75,6 +81,7 @@ export default class RealtimeRasterizer extends Rasterizer {
         // Adjust exposure value
         // this.exposure = Math.min(this.exposure, 1 / color.r, 1 / color.g, 1 / color.b)
 
+        // Copy the color into the frame buffer
         this.frameBuffer[index + 0] = Math.round(color.r * 255 * this.exposure)
         this.frameBuffer[index + 1] = Math.round(color.g * 255 * this.exposure)
         this.frameBuffer[index + 2] = Math.round(color.b * 255 * this.exposure)

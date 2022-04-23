@@ -2,8 +2,8 @@ import Sampler from '../abstract/Sampler'
 import Color from '../util/Color'
 import { checkMagic, readData, readDimensions, readHeader } from '../util/RgbeReader'
 import StreamReader from '../util/StreamReader'
-import Vector from '../util/Vector'
 
+/** A concrete implementation of Sampler for RGBE (.hdr) images. */
 export default class HdriSampler extends Sampler {
   public width = 0
   public height = 0
@@ -13,6 +13,7 @@ export default class HdriSampler extends Sampler {
   protected xDir = 1
   protected yDir = -1
 
+  /** Loads an HDR image into this sampler from a URI or existing buffer. */
   public async load(src: string | ArrayBuffer) {
     let rawBuffer: ArrayBuffer
 
@@ -40,10 +41,14 @@ export default class HdriSampler extends Sampler {
   }
 
   public getPixel(x: number, y: number) {
+    // Add an arbitrarily large number to allow wrapping around the edges, and snap to the nearest pixel
     const nX = Math.floor((x + 10000) % this.width)
     const nY = Math.floor((y + 10000) % this.height)
 
+    // Get coordinate for the data in a 1D array; row-major order with 3 components per pixel
     const offset = (nY * this.width + nX) * 3
+
+    // Get the RGB values from the data array
     const r = this.data[offset + 0]
     const g = this.data[offset + 1]
     const b = this.data[offset + 2]

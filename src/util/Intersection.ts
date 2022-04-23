@@ -2,6 +2,7 @@ import Material from '../renderer/Material'
 import Ray from './Ray'
 import Vector from './Vector'
 
+/** Provides information on a ray hit and the properties of the hit surface. */
 export default class Intersection {
   public position: Vector
 

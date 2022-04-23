@@ -1,6 +1,10 @@
 import Color from '../util/Color'
 import Vector from '../util/Vector'
 
+/**
+ * This abstract base class represents a color data source such as
+ * an image or video and provides utilities for extracting that data.
+ */
 export default abstract class Sampler {
   public width = 0
   public height = 0

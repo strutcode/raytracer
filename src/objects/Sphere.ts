@@ -4,6 +4,7 @@ import Intersection from '../util/Intersection'
 import Ray from '../util/Ray'
 import Vector from '../util/Vector'
 
+/** A parametric sphere shape with ray casting calculation. */
 export default class Sphere extends Shape {
   constructor(
     public center: Vector,
@@ -13,6 +14,7 @@ export default class Sphere extends Shape {
     super(material)
   }
 
+  /** Tests for and  */
   public intersect(ray: Ray): Intersection | null {
     const L = this.center.copy().sub(ray.origin)
     const tca = ray.direction.dot(L)
@@ -40,6 +42,10 @@ export default class Sphere extends Shape {
     // Get the intersection point as a vector
     const P = ray.direction.copy().mul(t0).add(ray.origin)
 
-    return new Intersection(ray, t0, this.material, P.sub(this.center).normalize())
+    // For a perfect sphere the normal will always point away from the center
+    // so get the normalized difference between the intersection point and the center
+    const N = P.sub(this.center).normalize()
+
+    return new Intersection(ray, t0, this.material, N)
   }
 }
