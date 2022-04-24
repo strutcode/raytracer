@@ -14,12 +14,6 @@ const bg = new HdriSampler()
 bg.load('HDR_029_Sky_Cloudy_Env.hdr')
 scene.background = bg
 
-document.addEventListener('keydown', ev => {
-  if (ev.key.toLowerCase() === 'i') {
-    bg.bilinear = !bg.bilinear
-  }
-})
-
 const sphere1 = scene.addShape(
   new Sphere(new Vector(180, 0, 500), 100, new Material(new Color(0.2, 0.85, 1))),
 )
@@ -45,5 +39,15 @@ sequence.onStep = () => {
   light.position.x = sphere1.center.x + Math.sin(d + Math.PI) * 500
   light.position.z = sphere1.center.z + Math.cos(d + Math.PI) * 500
 }
+
+document.addEventListener('keydown', ev => {
+  if (ev.key.toLowerCase() === 'i') {
+    bg.bilinear = !bg.bilinear
+  }
+
+  if (ev.key === ' ') {
+    sequence.pause = !sequence.pause
+  }
+})
 
 renderer.renderSequence(sequence)
