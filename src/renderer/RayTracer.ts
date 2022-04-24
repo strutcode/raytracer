@@ -23,7 +23,7 @@ export default class RayTracer {
         const reflectedColor = this.trace(scene, reflectedRay, depth + 1)
 
         // Use the reflection color as the base
-        color = reflectedColor
+        color = reflectedColor.mul(intersection.material.gloss)
       }
 
       // Accumulate light contributions additively
@@ -31,7 +31,7 @@ export default class RayTracer {
         const contribution = light.contribution(intersection)
 
         color.add(contribution.diffuse)
-        color.add(contribution.specular)
+        color.add(contribution.specular.mul(intersection.material.shine))
       })
 
       // Return the final color
