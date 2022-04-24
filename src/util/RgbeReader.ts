@@ -213,7 +213,7 @@ export function readComponent(stream: StreamReader, line: Uint8Array, offset: nu
      * offset allows us to select which component (0, 1, 2, or 3) we're
      * writing to. e.g. for 1 [-i--][-i--]...
      */
-    const pos = offset + i * 4
+    let pos = offset + i * 4
 
     // If the value is greater than 128, it represents a run of the same value
     if (length > 128) {
@@ -229,6 +229,7 @@ export function readComponent(stream: StreamReader, line: Uint8Array, offset: nu
 
         // Move to the next pixel each time
         i++
+        pos += 4
       }
     }
     // Values of 128 or less indicate a run of single values of that length
@@ -240,6 +241,7 @@ export function readComponent(stream: StreamReader, line: Uint8Array, offset: nu
 
         // Move to the next pixel
         i++
+        pos += 4
       }
     }
   }
