@@ -11,6 +11,8 @@ const halfPi = Math.PI / 2
  * initial rays.
  */
 export default class Camera {
+  public position = Vector.zero
+
   private fovScale: number
 
   constructor(public fieldOfView: number = 90) {
@@ -45,6 +47,6 @@ export default class Camera {
       Math.cos(xComp) * Math.cos(yComp),
     )
 
-    return new Ray(Vector.zero, direction)
+    return new Ray(this.position, direction)
   }
 }
