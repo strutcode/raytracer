@@ -1,3 +1,4 @@
+import { wrap } from '../util/Math';
 import Sampler from '../abstract/Sampler'
 import Color from '../util/Color'
 import { checkMagic, readData, readDimensions, readHeader } from '../util/RgbeReader'
@@ -42,8 +43,8 @@ export default class HdriSampler extends Sampler {
 
   public getPixel(x: number, y: number) {
     // Add an arbitrarily large number to allow wrapping around the edges, and snap to the nearest pixel
-    const nX = Math.floor((x + 10000) % this.width)
-    const nY = Math.floor((y + 10000) % this.height)
+    const nX = Math.floor(wrap(x, 0, this.width))
+    const nY = Math.floor(wrap(y, 0, this.width))
 
     // Get coordinate for the data in a 1D array; row-major order with 3 components per pixel
     const offset = (nY * this.width + nX) * 3

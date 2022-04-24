@@ -20,7 +20,7 @@ const sphere1 = scene.addShape(
 const sphere2 = scene.addShape(
   new Sphere(new Vector(180, 0, 600), 100, new Material(new Color(0.88, 0.85, 1), 0.8, 0.5)),
 )
-const sun = scene.addLight(new Light(new Vector(-100, 1000, -25000), new Color(0.8, 0.8, 0.8)))
+const sun = scene.addLight(new Light(new Vector(-1000, 30000, -25000), new Color(0.8, 0.8, 0.8)))
 const light = scene.addLight(new Light(new Vector(-500, 0, 250), new Color(0.4, 0.4, 0.4)))
 
 const renderer = new RealtimeRasterizer({

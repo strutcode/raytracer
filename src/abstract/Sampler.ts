@@ -1,4 +1,5 @@
 import Color from '../util/Color'
+import { lerp, wrap } from '../util/Math'
 import Vector from '../util/Vector'
 
 /**
@@ -17,6 +18,42 @@ export default abstract class Sampler {
     const u = lon / (2 * Math.PI)
     const v = lat / Math.PI
 
-    return this.getPixel(u * this.width, v * this.height)
+    // The pixel positions
+    const x = u * this.width
+    const y = v * this.height
+
+    // Bilinear interpolation
+    if (x % 1 !== 0 || y % 1 !== 0) {
+      // The x and y fraction between the 4 interpolation points
+      const xR = wrap(x, 0, 1)
+      const yR = wrap(y, 0, 1)
+
+      // The four pixels in question as [a, b][c, d]
+      const a = this.getPixel(x, y)
+      const b = this.getPixel(x + 1, y)
+      const c = this.getPixel(x, y + 1)
+      const d = this.getPixel(x + 1, y + 1)
+
+      // Perform linear interpolation
+      return new Color(
+        lerp(
+          lerp(a.r, b.r, xR),
+          lerp(c.r, d.r, xR),
+          yR,
+        ),
+        lerp(
+          lerp(a.g, b.g, xR),
+          lerp(c.g, d.g, xR),
+          yR,
+        ),
+        lerp(
+          lerp(a.b, b.b, xR),
+          lerp(c.b, d.b, xR),
+          yR,
+        ),
+      )
+    }
+
+    return this.getPixel(x, y)
   }
 }
