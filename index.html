@@ -9,10 +9,24 @@
       html,
       body {
         background: #000;
+        font-family: sans-serif;
+      }
+
+      .instructions {
+        position: fixed;
+        bottom: 1em;
+        left: 1em;
+        z-index: +100;
+        color: white;
+        text-shadow: 0 0 10px black;
       }
     </style>
   </head>
   <body>
+    <div class="instructions">
+      <div>i = toggle bilinear <u>i</u>nterpolation</div>
+      <div>space = pause/resume rendering</div>
+    </div>
     <script type="module" src="/src/index.ts"></script>
   </body>
 </html>
