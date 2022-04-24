@@ -9,6 +9,7 @@ import Vector from '../util/Vector'
 export default abstract class Sampler {
   public width = 0
   public height = 0
+  public bilinear = true
 
   public abstract getPixel(x: number, y: number): Color
 
@@ -23,7 +24,7 @@ export default abstract class Sampler {
     const y = v * this.height
 
     // Bilinear interpolation
-    if (x % 1 !== 0 || y % 1 !== 0) {
+    if (this.bilinear && (x % 1 !== 0 || y % 1 !== 0)) {
       // The x and y fraction between the 4 interpolation points
       const xR = wrap(x, 0, 1)
       const yR = wrap(y, 0, 1)

@@ -14,6 +14,12 @@ const bg = new HdriSampler()
 bg.load('HDR_029_Sky_Cloudy_Env.hdr')
 scene.background = bg
 
+document.addEventListener('keydown', ev => {
+  if (ev.key.toLowerCase() === 'i') {
+    bg.bilinear = !bg.bilinear
+  }
+})
+
 const sphere1 = scene.addShape(
   new Sphere(new Vector(180, 0, 500), 100, new Material(new Color(0.2, 0.85, 1))),
 )
