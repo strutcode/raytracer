@@ -25,7 +25,7 @@ export default class Light {
 
     // Calculate the colors and intensities
     return {
-      diffuse: new Color(mat.r * diffuse, mat.g * diffuse, mat.b * diffuse),
+      diffuse: new Color(mat.r * this.color.r * diffuse, mat.g * this.color.g * diffuse, mat.b * this.color.b * diffuse),
       specular: new Color(light.r * specular, light.g * specular, light.b * specular),
     }
   }
